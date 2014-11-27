@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.epimorphics.lda.bindings.Bindings;
-import com.epimorphics.lda.core.APIEndpoint;
 import com.epimorphics.lda.core.APIResultSet;
 import com.epimorphics.lda.renderers.Renderer;
 import com.epimorphics.lda.shortnames.CompleteContext.Mode;
@@ -56,7 +55,6 @@ implements Renderer
     private final MediaType mt;
     private final Resource configRoot;
     private final Mode prefixMode;
-    private APIEndpoint endpoint;
     ShortnameService shortNameService;
 
     /***********************************/
@@ -71,9 +69,8 @@ implements Renderer
      * @param prefixMode The required prefix mode, or <code>null</code> for default
      * @param sns The current short name service
      */
-    public VelocityRenderer( MediaType mt, APIEndpoint ep, Resource config, Mode prefixMode, ShortnameService sns ) {
+    public VelocityRenderer( MediaType mt, Resource config, Mode prefixMode, ShortnameService sns ) {
         this.mt = mt;
-        this.endpoint = ep;
         this.prefixMode = (prefixMode == null) ? Mode.PreferLocalnames : prefixMode;
         this.configRoot = config;
         this.shortNameService = sns;
@@ -114,11 +111,6 @@ implements Renderer
     /** @return The name of the outer template to use */
     public String templateName() {
         return RDFUtils.getStringValue( configRoot(), ELDA_API.velocityTemplate, DEFAULT_TEMPLATE );
-    }
-
-    /** @return The endpoint description object */
-    public APIEndpoint endpoint() {
-        return endpoint;
     }
 
     /** @return The shortname service instance */
