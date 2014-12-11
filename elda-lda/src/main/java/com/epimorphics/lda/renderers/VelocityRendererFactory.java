@@ -22,7 +22,7 @@ public class VelocityRendererFactory implements RendererFactory {
 
     @Override
     public Renderer buildWith( APIEndpoint ep, ShortnameService sns ) {
-        return new VelocityRenderer( mt, ep, config, null, sns );
+        return new VelocityRenderer( mt, /* ep, */ config, null, sns );
     }
 
     @Override
